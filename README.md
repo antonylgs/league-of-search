@@ -3,7 +3,7 @@
 You can search and visualize a League Of Legends player's data.\
 Displays there top champions, let you also check all their champions mastery points and level.\
 Displays there ranks.\
-Displays their 7 last matchs with the result and the date, their champion, KDA, items, lane.\
+Displays their 7 last matchs with the result and the date, their champion, KDA, items, lane.
 
 ### How to use
 
