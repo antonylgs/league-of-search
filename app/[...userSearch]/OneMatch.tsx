@@ -20,7 +20,7 @@ function OneMatch({
   return (
     <div
       key={match.info.gameId}
-      className="flex sm:flex-row relative flex-col gap-4 sm:gap-0 pt-12 sm:pt-7 items-center bg-black/[0.8] px-4 py-2 rounded-lg sm:min-w-[500px] h-min"
+      className="flex sm:flex-row relative flex-col gap-4 sm:gap-0 pt-12 sm:pt-7 items-center bg-black/[0.8] px-4 py-2 rounded-lg sm:min-w-[500px] h-min sm:max-w-[90vw] lg:max-w-[100%]"
     >
       {/* Win or Lose, map and date */}
       <div className="flex sm:min-w-[50%] items-center">
@@ -33,7 +33,9 @@ function OneMatch({
             >
               {playerMatchInformations.win ? "Win" : "Lose"}
             </span>{" "}
-            <span className="text-neutral-500">{mapName}</span>
+            <span className="text-neutral-500">
+              {mapName} - {match.info.gameMode}
+            </span>
           </span>
           <span className="text-neutral-500">
             ({new Date(match.info.gameCreation).toUTCString()})
