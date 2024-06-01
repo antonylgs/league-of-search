@@ -17,11 +17,7 @@ export const searchPlayer = async (
   tagline: string
 ) => {
   const puuidResponse = await fetch(
-    `https://${getRegionByMatchRegion(
-      region
-    )}.api.riotgames.com/riot/account/v1/accounts/by-riot-id/${username}/${tagline}?api_key=${
-      process.env.API_KEY
-    }`
+    `https://EUROPE.api.riotgames.com/riot/account/v1/accounts/by-riot-id/${username}/${tagline}?api_key=${process.env.API_KEY}`
   );
 
   const puuidData: UserType = await puuidResponse.json();

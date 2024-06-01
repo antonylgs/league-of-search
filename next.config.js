@@ -1,10 +1,12 @@
 /** @type {import('next').NextConfig} */
 module.exports = {
   reactStrictMode: true,
-  experimental: {
-    appDir: true,
-  },
   images: {
-    domains: ['ddragon.leagueoflegends.com'],
-},
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "ddragon.leagueoflegends.com",
+      },
+    ],
+  },
 };
