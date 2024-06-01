@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 import { Champion, Item, Match, Participant } from "../../types";
 
-type MatchProps = {
+type OneMatchProps = {
   match: Match;
   playerMatchInformations: Participant;
   champion: Champion;
@@ -10,13 +10,13 @@ type MatchProps = {
   items: Item[];
 };
 
-function Match({
+function OneMatch({
   match,
   playerMatchInformations,
   champion,
   mapName,
   items,
-}: MatchProps) {
+}: OneMatchProps) {
   return (
     <div
       key={match.info.gameId}
@@ -41,7 +41,7 @@ function Match({
         </p>
         {/* Champion image, name and lane */}
         <Image
-          src={`https://ddragon.leagueoflegends.com/cdn/13.4.1/img/champion/${champion.image.full}`}
+          src={`https://ddragon.leagueoflegends.com/cdn/14.11.1/img/champion/${champion.image.full}`}
           width={40}
           height={40}
           style={{ objectFit: "contain" }}
@@ -77,7 +77,7 @@ function Match({
       <div className="flex flex-1 gap-2">
         {playerMatchInformations.item0 !== 0 && (
           <Image
-            src={`http://ddragon.leagueoflegends.com/cdn/13.4.1/img/item/${playerMatchInformations.item0}.png`}
+            src={`http://ddragon.leagueoflegends.com/cdn/14.11.1/img/item/${playerMatchInformations.item0}.png`}
             width={30}
             height={30}
             alt={`Item 1`}
@@ -86,7 +86,7 @@ function Match({
         )}
         {playerMatchInformations.item1 !== 0 && (
           <Image
-            src={`http://ddragon.leagueoflegends.com/cdn/13.4.1/img/item/${playerMatchInformations.item1}.png`}
+            src={`http://ddragon.leagueoflegends.com/cdn/14.11.1/img/item/${playerMatchInformations.item1}.png`}
             width={30}
             height={30}
             alt={`Item 2`}
@@ -95,7 +95,7 @@ function Match({
         )}
         {playerMatchInformations.item2 !== 0 && (
           <Image
-            src={`http://ddragon.leagueoflegends.com/cdn/13.4.1/img/item/${playerMatchInformations.item2}.png`}
+            src={`http://ddragon.leagueoflegends.com/cdn/14.11.1/img/item/${playerMatchInformations.item2}.png`}
             width={30}
             height={30}
             alt={`Item 3`}
@@ -104,7 +104,7 @@ function Match({
         )}
         {playerMatchInformations.item3 !== 0 && (
           <Image
-            src={`http://ddragon.leagueoflegends.com/cdn/13.4.1/img/item/${playerMatchInformations.item3}.png`}
+            src={`http://ddragon.leagueoflegends.com/cdn/14.11.1/img/item/${playerMatchInformations.item3}.png`}
             width={30}
             height={30}
             alt={`Item 4`}
@@ -113,7 +113,7 @@ function Match({
         )}
         {playerMatchInformations.item4 !== 0 && (
           <Image
-            src={`http://ddragon.leagueoflegends.com/cdn/13.4.1/img/item/${playerMatchInformations.item4}.png`}
+            src={`http://ddragon.leagueoflegends.com/cdn/14.11.1/img/item/${playerMatchInformations.item4}.png`}
             width={30}
             height={30}
             alt={`Item 5`}
@@ -122,7 +122,7 @@ function Match({
         )}
         {playerMatchInformations.item5 !== 0 && (
           <Image
-            src={`http://ddragon.leagueoflegends.com/cdn/13.4.1/img/item/${playerMatchInformations.item5}.png`}
+            src={`http://ddragon.leagueoflegends.com/cdn/14.11.1/img/item/${playerMatchInformations.item5}.png`}
             width={30}
             height={30}
             alt={`Item 6`}
@@ -134,4 +134,4 @@ function Match({
   );
 }
 
-export default Match;
+export default OneMatch;

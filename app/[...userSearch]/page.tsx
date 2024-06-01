@@ -23,7 +23,7 @@ import {
   getPlayerChampionMastery,
   getItems,
 } from "../utils/functions";
-import Match from "./Match";
+import OneMatch from "./OneMatch";
 import SummonerStats from "./SummonerStats";
 import TopChampions from "./TopChampions";
 
@@ -37,6 +37,7 @@ async function SearchResult({ params: { userSearch } }: PageProps) {
   // Get the region and the username from the url
   const region: string = userSearch[0];
   const username: string = userSearch[1];
+  const tagline: string = userSearch[2];
 
   // Get the champions and the maps data
   const champions: Champion[] = await getChampions();
@@ -44,17 +45,18 @@ async function SearchResult({ params: { userSearch } }: PageProps) {
   const items = await getItems();
 
   // Get the player data adn their stats
-  const player: UserType = await searchPlayer(region, username);
+  const player: UserType = await searchPlayer(region, username, tagline);
   const playerStats: PlayerStatsType[] = await searchPlayerStats(
     region,
     player.id
   );
+
   const playerTopChampions: ChampionMastery[] = await getPlayerTopChampions(
     region,
-    player.id
+    player.puuid
   );
   const playerAllChampionsMastery: ChampionMastery[] =
-    await getPlayerChampionMastery(region, player.id);
+    await getPlayerChampionMastery(region, player.puuid);
 
   // Get the last 5 matches of the player
   const matchRegion: string = getRegionByMatchRegion(region)!;
@@ -71,7 +73,7 @@ async function SearchResult({ params: { userSearch } }: PageProps) {
       <div className="flex flex-col justify-center items-center">
         <div className="w-fit pb-4 flex flex-col text-white items-center rounded-lg">
           <Image
-            src={`https://ddragon.leagueoflegends.com/cdn/13.4.1/img/profileicon/${player.profileIconId}.png`}
+            src={`https://ddragon.leagueoflegends.com/cdn/14.11.1/img/profileicon/${player.profileIconId}.png`}
             width={100}
             height={100}
             alt="Profile icon of the player"
@@ -96,7 +98,7 @@ async function SearchResult({ params: { userSearch } }: PageProps) {
       {/* Summoner Stats + Matches */}
       <div className="flex md:flex-row flex-col gap-8 sm:gap-4">
         {/* Summoner Stats */}
-        <div className="flex items-center sm:items-start justify-center md:justify-start gap-5 flex-col sm:flex-row md:flex-col">
+        <div className="flex items-center sm:items-start justify-center md:justify-start gap-5 flex-col-reverse sm:flex-row-reverse md:flex-col-reverse">
           {playerStats.map((playerStat) => (
             <SummonerStats key={playerStat.queueType} playerStat={playerStat} />
           ))}
@@ -120,7 +122,7 @@ async function SearchResult({ params: { userSearch } }: PageProps) {
             if (!mapName) return null;
 
             return (
-              <Match
+              <OneMatch
                 key={match.info.gameId}
                 match={match}
                 playerMatchInformations={playerMatchInformations}

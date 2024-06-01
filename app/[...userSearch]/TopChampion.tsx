@@ -16,7 +16,7 @@ function TopChampion({ championData, champion }: TopChampionProps) {
       {/* Champion's icon */}
       <div className="flex">
         <Image
-          src={`https://ddragon.leagueoflegends.com/cdn/13.4.1/img/champion/${championData?.image.full}`}
+          src={`https://ddragon.leagueoflegends.com/cdn/14.11.1/img/champion/${championData?.image.full}`}
           width={40}
           height={40}
           style={{ objectFit: "contain" }}

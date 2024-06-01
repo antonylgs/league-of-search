@@ -11,14 +11,34 @@ import {
 import { MatchRegionCorrespondance } from "./constants";
 
 // Get the player data
-export const searchPlayer = async (region: string, username: string) => {
-  const response = await fetch(
-    `https://${region}.api.riotgames.com/lol/summoner/v4/summoners/by-name/${username}?api_key=${process.env.API_KEY}`
+export const searchPlayer = async (
+  region: string,
+  username: string,
+  tagline: string
+) => {
+  const puuidResponse = await fetch(
+    `https://${getRegionByMatchRegion(
+      region
+    )}.api.riotgames.com/riot/account/v1/accounts/by-riot-id/${username}/${tagline}?api_key=${
+      process.env.API_KEY
+    }`
   );
-  const data: UserType = await response.json();
-  if (!data.puuid) {
+
+  const puuidData: UserType = await puuidResponse.json();
+
+  if (!puuidData.puuid) {
     throw new Error("User not found");
   }
+
+  const response = await fetch(
+    `https://${region}.api.riotgames.com/lol/summoner/v4/summoners/by-puuid/${puuidData.puuid}?api_key=${process.env.API_KEY}`
+  );
+  const data: UserType = await response.json();
+
+  if (!data.puuid) {
+    throw new Error("User not found on this server");
+  }
+
   return data;
 };
 
@@ -35,12 +55,9 @@ export const searchPlayerStats = async (
 };
 
 // Get the top 3 champions of the player
-export const getPlayerTopChampions = async (
-  region: string,
-  summonerEncryptedId: string
-) => {
+export const getPlayerTopChampions = async (region: string, puuid: string) => {
   const response = await fetch(
-    `https://${region}.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/${summonerEncryptedId}/top?api_key=${process.env.API_KEY}`
+    `https://${region}.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-puuid/${puuid}/top?api_key=${process.env.API_KEY}`
   );
   const data = await response.json();
   return data;
@@ -49,10 +66,10 @@ export const getPlayerTopChampions = async (
 // Get the all champion's mastery of the player
 export const getPlayerChampionMastery = async (
   region: string,
-  summonerEncryptedId: string
+  puuid: string
 ) => {
   const response = await fetch(
-    `https://${region}.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/${summonerEncryptedId}?api_key=${process.env.API_KEY}`
+    `https://${region}.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-puuid/${puuid}?api_key=${process.env.API_KEY}`
   );
   const data: ChampionMastery[] = await response.json();
   return data;
@@ -82,7 +99,7 @@ export const getMatchInformationsById = async (
 // Get all the champions from the JSON
 export const getChampions = async () => {
   const response = await fetch(
-    `https://ddragon.leagueoflegends.com/cdn/13.4.1/data/en_US/champion.json`
+    `https://ddragon.leagueoflegends.com/cdn/14.11.1/data/en_US/champion.json`
   );
   const data = await response.json();
   return data.data;
@@ -91,7 +108,7 @@ export const getChampions = async () => {
 // Get all the items from the JSON
 export const getItems = async () => {
   const response = await fetch(
-    `https://ddragon.leagueoflegends.com/cdn/13.5.1/data/en_US/item.json`
+    `https://ddragon.leagueoflegends.com/cdn/14.11.1/data/en_US/item.json`
   );
   const data = await response.json();
   return data.data;

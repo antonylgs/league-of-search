@@ -5,14 +5,23 @@ import React, { FormEvent, useState } from "react";
 import { regions } from "./utils/constants";
 
 function Search() {
+  const [userSearched, setUserSearched] = useState<string>("");
   const [username, setUsername] = useState<string>("");
+  const [tagline, setTagline] = useState<string>("");
   const [region, setRegion] = useState<string>("EUW1");
   const router = useRouter();
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    router.push(`/${region}/${username}`);
+    router.push(`/${region}/${username}/${tagline}`);
   }
+
+  const handleUsernameChange = (value: string) => {
+    const parts = value.split("#");
+    setUsername(parts[0]);
+    setTagline(parts[1]);
+    setUserSearched(value);
+  };
 
   return (
     <form
@@ -22,9 +31,9 @@ function Search() {
       <div className="relative">
         <input
           type="text"
-          value={username}
-          onChange={(event) => setUsername(event.target.value)}
-          placeholder="Username"
+          value={userSearched}
+          onChange={(event) => handleUsernameChange(event.target.value)}
+          placeholder="Username#TAGLINE"
           className="border-2 border-gray-300 bg-black h-8 mr-4 px-5 pr-20 rounded-lg text-sm focus:outline-none"
         />
         <div className="h-4 bg-gray-300 w-[0.5px] absolute right-[90px] top-2" />
