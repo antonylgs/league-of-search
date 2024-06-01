@@ -24,7 +24,7 @@ function SummonerStats({ playerStat }: SummonerStatsProps) {
       <div>
         <div className="relative h-[100px] mb-2">
           <Image
-            src={`/emblem-${playerStat.tier.toLowerCase()}.png`}
+            src={`/emblem-${playerStat.tier?.toLowerCase()}.png`}
             alt={`Icon of ${playerStat.tier} rank`}
             width={1280}
             height={720}
