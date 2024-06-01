@@ -2,11 +2,6 @@
 module.exports = {
   reactStrictMode: true,
   images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "ddragon.leagueoflegends.com",
-      },
-    ],
+    domains: ["ddragon.leagueoflegends.com"],
   },
 };

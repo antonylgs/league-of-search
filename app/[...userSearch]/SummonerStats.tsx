@@ -1,5 +1,6 @@
 import React from "react";
 import { PlayerStatsType } from "../../types";
+import Image from "next/image";
 
 type SummonerStatsProps = {
   playerStat: PlayerStatsType;
@@ -22,9 +23,11 @@ function SummonerStats({ playerStat }: SummonerStatsProps) {
       {/* Rank icon */}
       <div>
         <div className="relative h-[100px] mb-2">
-          <img
-            src={`/ranked-emblems/emblem-${playerStat.tier}.png`}
+          <Image
+            src={`/emblem-${playerStat.tier}.png`}
             alt={`Icon of ${playerStat.tier} rank`}
+            width={1280}
+            height={720}
             className="absolute w-[600px] max-w-none top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
           />
         </div>
