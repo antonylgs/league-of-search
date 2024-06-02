@@ -22,6 +22,8 @@ export const searchPlayer = async (
 
   const puuidData: UserType = await puuidResponse.json();
 
+  console.log("PPUID:", puuidData);
+
   if (!puuidData.puuid) {
     throw new Error("User not found");
   }
