@@ -9,7 +9,7 @@ export default function RootLayout({
   return (
     <html>
       <head></head>
-      <body className="bg-zinc-900 text-white">
+      <body className="bg-zinc-900 text-white overflow-x-hidden">
         <main className="flex flex-col justify-center items-center mt-8 w-screen">
           <h1 className="font-bold mb-8">League Of Search</h1>
           <div className="flex-1 border-none">
