@@ -26,6 +26,7 @@ import {
 import OneMatch from "./OneMatch";
 import SummonerStats from "./SummonerStats";
 import TopChampions from "./TopChampions";
+import Error from "./error";
 
 type PageProps = {
   params: {
@@ -45,7 +46,13 @@ async function SearchResult({ params: { userSearch } }: PageProps) {
   const items = await getItems();
 
   // Get the player data adn their stats
-  const player: UserType = await searchPlayer(region, username, tagline);
+  let player: UserType;
+  try {
+    player = await searchPlayer(region, username, tagline);
+  } catch (error: any) {
+    return <div className="font-bold text-center">{error.message}</div>;
+  }
+
   const playerStats: PlayerStatsType[] = await searchPlayerStats(
     region,
     player.id
