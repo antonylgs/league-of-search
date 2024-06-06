@@ -50,6 +50,7 @@ async function SearchResult({ params: { userSearch } }: PageProps) {
   try {
     player = await searchPlayer(region, username, tagline);
   } catch (error: any) {
+    console.log(error);
     return <div className="font-bold text-center">{error.message}</div>;
   }
 
